@@ -1,0 +1,134 @@
+@import 'sass/mixins';
+@import 'sass/functions';
+@import "sass/font-stack";
+@import 'sass/variables';
+.block{
+    display: block;
+}
+#nav{
+    background-color: $mahadum;
+    color: $mfc-mn;
+    font-size: 1.1em;
+    /*min-height: 40px;*/
+    /*margin-bottom: -6px;*/
+    .current, a:hover{
+       color: tint($mfc-mn, 40%);
+    };
+    a{
+        color: $mfc-mn;
+        text-decoration: none !important;
+    };
+    @include breakpoint('sm'){
+        #menu-icon {
+            display: none;
+            width: 30px;
+            height: 30px;
+        };
+        #user-icon {
+            display: none;
+            width: 30px;
+            height: 30px;
+        };
+        ul#navbar-menu{
+            display: block;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            font-size: 1.1em;
+            @include span(4);
+            li {
+                display: inline-block;
+                padding: 6px 2px;
+            };
+            .current {
+                color: #2262AD;
+            }
+        };
+        ul#navbar-user{
+            display: block;
+            list-style: none;
+            margin: 0;
+            text-align: right;
+            @include span(8);
+            margin-top: 5px;
+            li {
+                display: inline-block;
+            };
+            .current {
+                color: #2262AD;
+            }
+        };
+    };
+    @include breakpoint('xs'){
+        #menu-icon {
+            position: relative;
+            display: inline-block;
+            z-index: 20;
+            @include span(2);
+            text-align: left;
+            padding-top: 4px;
+            font-size: 1.5em !important;
+            color: $mfc-mn !important;
+        }
+        #user-icon {
+            position: relative;
+            display: inline-block;
+            z-index: 20;
+            cursor: pointer;
+            @include span(2, 8);
+            text-align: right; 
+            font-size: 1.3em !important;
+            color: $mfc-mn !important;     
+        }
+        .block{
+            display: block;
+            position: relative;
+        };
+        ul { 
+            display: none;
+            position: absolute;
+            padding: 10px;
+            left: 0px;
+            z-index: 19;
+            color:  $mfc-mn;;
+            top: 1px;
+        };
+        ul#navbar-menu{
+            list-style: none;
+            @include span(12);
+            width: 100%;
+            padding: 10px 0 4px 15px;
+            background-color: shade($mahadum, 20%);
+            border-top: solid thin shade($mahadum, 10%);
+            li {
+                text-align: left;
+                padding:0;
+                margin: 0;
+                max-width: 90%;
+                display: block;
+                a{
+                    color: $mfc-mn;
+                }
+            }
+        };
+        ul#navbar-user{
+            list-style: none;
+            @include span(12);
+            width: 100%;
+            padding: 10px 0px 4px 0;
+            background-color: shade($mahadum, 20%);
+            border-top: solid thin shade($mahadum, 10%);
+            li {
+                text-align: right;
+                padding: 0;
+                max-width: 90%;
+                margin: 0;
+                padding: 0;
+                display: block;
+                a{
+                    color: $mfc-mn;
+                }
+            }
+        }
+    }
+}

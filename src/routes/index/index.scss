@@ -1,0 +1,37 @@
+/*  index  */
+@import '../../styles/sass/mixins';
+@import '../../styles/sass/functions';
+@import '../../styles/sass/font-stack';
+@import '../../styles/sass/variables';
+
+.load-login{
+    position: absolute ;
+    top: 0px;
+    right: 0px;
+}
+
+.control {
+    @include breakpoint('sm'){
+        margin-bottom: 14px;
+        width: 50%;
+        display: inline-block;    
+    }
+    @include breakpoint('xs'){
+        margin-bottom: 14px;
+        width: 100%;
+        display: inline-block;
+    }
+    small{
+        font-size: 0.8em;
+    }
+    .select-label{
+        color: #fff !important;
+    }
+}
+.forgot{
+    padding-top: 2px;
+}
+button#modal-send, button#modal-cancel {
+    margin-left: 15px;
+
+}

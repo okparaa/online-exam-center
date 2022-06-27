@@ -1,0 +1,24 @@
+@import 'mixins';
+@import 'functions';
+/* index/index media*/
+@mixin mahadum--xs() {
+  #mahadum{
+    font-size: 14px;
+  }
+} 
+@mixin mahadum--sm() {
+  #mahadum{
+    font-size: 18px;
+  }
+} 
+@mixin mahadum--md() {
+  #mahadum{
+    font-size: 20px;
+  }
+} 
+@mixin mahadum--lg() {
+  #mahadum{
+    font-size: 25px;
+  }
+} 
+

@@ -1,0 +1,61 @@
+// Typography
+$base-font-family: $font-stack-system;
+$heading-font-family: $base-font-family;
+
+// Line height
+$base-line-height: 1.5;
+$heading-line-height: 1.2;
+
+// Other Sizes
+$base-border-radius: 1px;
+$base-spacing: 32px;
+$small-spacing: $base-spacing - 23;
+$base-z-index: 0;
+
+// Colors
+$blue: #1565c0;
+$light-lemon: #a4ffa4;
+$dark-gray: #333;
+$medium-gray: #999;
+$small-gray: #ccc;
+$light-gray: #ddd;
+$futo-bg-color: #31CAFF;
+$futo-fnt-color: #000;
+$futo-orm-color: #2F9642;
+$mfc-mn: shade($futo-bg-color, 60%);
+$green: #008000;
+$mfc : $futo-fnt-color;
+$mfc-orm : $futo-orm-color;
+$mahadum : shade($futo-bg-color, 10%);
+$borda : $futo-bg-color;
+$black-borda: #000;
+$black-tint: tint(#000, 70%);
+
+// Font Colors
+$base-font-color: $dark-gray;
+$action-color: $mahadum;
+
+// Border
+$base-border-color: $small-gray;
+$base-border: 1px solid $base-border-color;
+
+// Background Colors
+$viewport-background-color: #fff;
+
+// Focus
+$focus-outline-color: transparentize($action-color, 0.4);
+$focus-outline-width: 0px;
+$focus-outline: $focus-outline-width solid $focus-outline-color;
+$focus-outline-offset: 0px;
+
+// Animations
+$base-duration: 150ms;
+$base-timing: ease;
+
+//badge
+$font-size-small: 11px;
+$badge-font-weight: bold;
+$badge-line-height: 1.4;
+$badge-color: $mahadum;
+$badge-bg: $light-lemon;
+$badge-border-radius: 4px;

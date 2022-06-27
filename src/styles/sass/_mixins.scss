@@ -1,0 +1,94 @@
+// -----------------------------------------------------------------
+// Variable grid
+// -----------------------------------------------------------------
+
+$grid-container-width: 100%;
+$grid-columns: 12 !default; // No. of Columns
+$grid-gutter: 0 !default; //Column $grid-gutter: left and right
+$grid-padding: 2px; // Column padding
+$grid-container-padding: 1em;
+$grid-top-gutter: 0%;
+
+// Mixin
+@mixin box-sizing {
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */	
+}
+
+@mixin clearfix { 
+    &:before,
+    &:after { 
+        display: table; 
+        content: " "; 
+        line-height: 0;
+    }
+    &:after { 
+        clear: both; 
+    }
+}
+@mixin container($width: $grid-container-width) {
+    width: $width;
+	  padding: 0;
+    margin: 0 auto;
+    @include clearfix();
+}
+
+@mixin row () {
+    display: block;
+    margin: 0;
+    @include clearfix();
+    // margin-left: -$grid-gutter;
+}
+
+@mixin span($column-span, $push:0, $gutter: $grid-gutter) {   
+  $grid-width: 100%;
+  $column-cal: ($grid-width / $grid-columns * $column-span);
+  $column-width: $column-cal - ($gutter * 2); 
+  $offset: ($column-cal) / ($column-span) * $push + $gutter;
+  
+    // $column-width-calc: calc(($grid-width / $grid-columns * $column-span) - ($gutter * 2)); 
+    // $grid-gutter NEED TO BE ADDED FOR OFFSET
+  float: left;
+  width: $column-width; 
+//   width: calc((#{$grid-width} / #{$grid-columns} * #{$column-span}) - (#{$gutter} * 2));
+  padding: $grid-padding;
+  @if $push == 0 {
+    margin: $grid-top-gutter $gutter;
+  } @else {
+    margin: $grid-top-gutter $gutter;
+    margin-left: $offset;
+    // margin-left: calc((#{$grid-width} / #{$grid-columns} ) * #{$push} + #{$gutter});
+  }
+  // for testing only below
+   // outline: 1px dashed #f06;
+}
+
+@mixin breakpoint($class) {
+    @if $class == xs {
+      @media (max-width: 587px) { @content; }
+    }
+   
+    @else if $class == sm {
+      @media (min-width: 588px) { @content; }
+    }
+   
+    @else if $class == md {
+      @media (min-width: 792px) { @content; }
+    }
+   
+    @else if $class == lg {
+      @media (min-width: 1000px) { @content; }
+    }
+   
+    @else { @warn 'Breakpoint mixin supports: xs, sm, md, lg'; }
+  }
+
+  @mixin rotate($deg: 90){
+    $sDeg: #{$deg}deg;
+    -webkit-transform: rotate($sDeg);
+    -moz-transform: rotate($sDeg);
+    -ms-transform: rotate($sDeg);
+    -o-transform: rotate($sDeg);
+    transform: rotate($sDeg);
+}

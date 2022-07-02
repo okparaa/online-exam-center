@@ -1,5 +1,5 @@
 export default {
-	url: "http://tsorms.org/v2",
+	url: "http://tsexams.org/v2",
 	// url: 'https://ants.acefuels-futo.ng',
 	empty_message: `Oops! There is nothing here`,
 	dateOptions: { weekday: "long", year: "numeric", month: "long", day: "numeric" },

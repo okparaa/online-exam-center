@@ -16,18 +16,25 @@ import Dash from '../routes/users/dash';
 import Okam from '../routes/users/okam';
 import Footer from './parts/footer';
 import Header from './parts/header';
+import createAction from '../actions';
 
 addMemory(store);
 
 const App: FunctionComponent<Props> = props => {
     const [url, setUrl] = useState('');
+    const actions = createAction(useStore())
+    const updateStoreItems = useAction(actions.updateStoreItems);
+    const appRef = useRef(null);
 
     const handleRoute = (e: any) => {
         setUrl(e.url);
     };
+    useEffect(() => {
+        updateStoreItems({ appRef: appRef.current });
+    }, []);
 
     return (
-        <div id="app">
+        <div id="app" ref={appRef}>
             <div className="overlay"></div>
             <img style={{ position: 'absolute', visibility: 'hidden' }} src={tmoon} />
             <div onClick={toggle} id="schul">

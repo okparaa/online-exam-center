@@ -19,8 +19,7 @@ const Header: FunctionComponent<HeaderProps> = props => {
   const actions = createAction(useStore())
   const xPost = useAction(actions.xPost);
   const updateStoreItems = useAction(actions.updateStoreItems);
-  let count, fData = {}, wkoff = false, idx, time = 0, msg;
-  //useSelector('count,fData,wkoff,idx,time,msg');
+  let { count, fData, wkoff, idx, time, msg } = useSelector('count,fData,wkoff,idx,time,msg');
   let usr = isLogdIn();
 
   const viewApp = (e: any) => {
@@ -48,7 +47,8 @@ const Header: FunctionComponent<HeaderProps> = props => {
   }, []);
 
 
-  const send = () => {
+  const send = (e: Event) => {
+    e.preventDefault();
     let config = {
       datum: fData,
       fetched: "",
@@ -57,7 +57,8 @@ const Header: FunctionComponent<HeaderProps> = props => {
     xPost(config);
   };
 
-  const logout = () => {
+  const logout = (e: Event) => {
+    e.preventDefault();
     if (wkoff) return;
     let config = {
       url: "/users/logout",

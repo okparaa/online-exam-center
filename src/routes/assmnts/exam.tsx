@@ -84,7 +84,7 @@ const Exam: FunctionalComponent<Props> = (props) => {
       url: `/users/logout/10${!!cid ? "/" + cid : ""}`,
       action: "LOGOUT",
     };
-    xPost(null, null, config);
+    xPost(config);
   };
 
   if (!elements) {

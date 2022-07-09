@@ -1,6 +1,5 @@
 import { route } from "preact-router";
-import { Store } from "unistore";
-import { clear, setItem } from "./components/parts/auth";
+import { clear, clearIdb, putIdbItem, setItem } from "./components/parts/auth";
 import { xhr } from "./components/parts/http";
 import { paginate } from "./components/parts/paginate";
 import { State, Elems, Errors, Config, Data, Ctrls, TargetGroup } from "./components/parts/types";
@@ -181,8 +180,14 @@ const createAction = ({ getState, setState }: any) => {
 		console.log(data);
 		if (data && data.user && data.user.s === "con") {
 			clear();
+			clearIdb();
+
 			setItem("token", data.user.token);
+			putIdbItem('token', data.user.token)
+
 			setItem("rtoken", data.user.rtoken);
+			putIdbItem('rtoken', data.user.rtoken)
+
 			setItem("passport", data.user.passport);
 			setItem("fn", data.user.fn);
 			setItem("s", data.user.s);
@@ -201,6 +206,7 @@ const createAction = ({ getState, setState }: any) => {
 	};
 	const clearLocalData = () => {
 		clear();
+		clearIdb();
 		route("/");
 	};
 	const callSava = (state: State, elements: Elems, form_data: Data, config: any, ctrls: Ctrls) => {
@@ -222,7 +228,10 @@ const createAction = ({ getState, setState }: any) => {
 		setState({ ...getState(), [spin]: true });
 		xhr
 			.get(config.url)
-			.then(({ data }: any) => {
+			.then((response: any) => {
+				const { data } = response;
+				console.log('respon', response);
+
 				if (!!data && data.controller && data.action) {
 					route(`/${data.controller}/${data.action}`);
 				}
@@ -240,20 +249,20 @@ const createAction = ({ getState, setState }: any) => {
 			.catch((err: any) => {
 				if (err.response) {
 					setState({ ...getState(), resp_error: err.response });
-					console.log(err.response);
+					// console.log(err.response);
 				} else if (err.request) {
 					console.log(err.request);
 					setState({ ...getState(), req_error: err.request });
 				} else if (err.code == "ERR_NETWORK") {
-					console.log("Network Error", err.code);
+					// console.log("Network Error", err.code);
 				} else {
-					console.log("Error", err.message);
+					// console.log("Error", err.message);
 				}
 				setState({ ...getState(), [spin]: false });
 				if (typeof window !== 'undefined') {
 					removeClass(config.target, "load");
 				}
-				console.log("Error in xGet: ", err);
+				// console.log("Error in xGet: ", err);
 			});
 	};
 	const xPost = (state: State, config: Config) => {
@@ -261,14 +270,15 @@ const createAction = ({ getState, setState }: any) => {
 		if (typeof window !== 'undefined') {
 			addClass(config.target, "load");
 		}
-		const control =
-			setState({ ...getState(), [spin]: true });
 		let form_data = getState().form_data;
 		let ctrls = getState().ctrls;
 
 		xhr
 			.post(config.url, prepareData(config.datum || form_data, config))
-			.then(({ data }: any) => {
+			.then((response: any) => {
+				const { data } = response;
+				console.log('respon', response);
+
 				if (typeof window !== 'undefined') {
 					removeClass(config.target, "load");
 				}
@@ -312,15 +322,15 @@ const createAction = ({ getState, setState }: any) => {
 				}
 				if (err.response) {
 					setState({ ...getState(), resp_error: err.response });
-					console.log(err.response);
+					// console.log(err.response);
 				} else if (err.request) {
-					console.log(err.request);
+					// console.log(err.request);
 					setState({ ...getState(), req_error: err.request });
 				} else {
-					console.log("Error", err.message);
+					// console.log("Error", err.message);
 				}
 				setState({ ...getState(), [spin]: false });
-				console.log(err)
+				// console.log(err)
 			});
 	};
 	const prepareData = (data: any, config: any, form?: Data, parentKey?: any) => {

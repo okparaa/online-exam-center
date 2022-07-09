@@ -1,3 +1,4 @@
+import { openDB } from "idb";
 import jwtDecode, { JwtPayload } from "jwt-decode";
 import { JwtPload } from "./types";
 
@@ -63,3 +64,31 @@ export const getItem = (name: string) => {
 export const clear = () => {
   typeof window !== 'undefined' && localStorage.clear();
 }
+
+export const localdb = {
+  loc_db: typeof window !== 'undefined' ? openDB("exmdb", 1, {
+    upgrade(db) {
+      db.createObjectStore('exms');
+    },
+  }) : null
+}
+
+export async function putIdbItem(key: string, item: any) {
+  return (await localdb.loc_db)?.put('exms', item, key);
+}
+
+export async function putIdbItems(items: any) {
+  const db = await localdb.loc_db
+  for (const [key, value] of Object.entries(items)) {
+    db?.put('exms', value, key)
+  }
+  return;
+}
+
+export async function getIdbItem(key: string) {
+  return (await localdb.loc_db)?.get('exms', key);
+}
+
+export async function clearIdb() {
+  return (await localdb.loc_db)?.clear('exms');
+};

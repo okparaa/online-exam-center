@@ -35,6 +35,8 @@ const App: FunctionComponent<Props> = props => {
 
     return (
         <div id="app" ref={appRef}>
+            <button id="app-update" style={{ display: 'none' }} className="pointer app-update">
+            </button>
             <div className="overlay"></div>
             <img style={{ position: 'absolute', visibility: 'hidden' }} src={tmoon} />
             <div onClick={toggle} id="schul">

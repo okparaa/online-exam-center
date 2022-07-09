@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf build preact build --no-sw --no-esm ",
-    "serve": "sirv build --host 127.0.0.1 --port 3030 --cors --single --no-sw",
+    "build": "rm -rf build && preact build --no-sw --no-esm ",
+    "serve": "rm -rf build && preact build --no-sw --no-esm && sirv build --host 127.0.0.1 --port 3030 --cors --single",
     "dev": "preact watch --host 127.0.0.1 --port 3030",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
     "test": "jest ./tests",

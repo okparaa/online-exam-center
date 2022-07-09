@@ -8,6 +8,7 @@ import { Data, Props } from "../../components/parts/types";
 import Loading from "../../components/parts/loading";
 import acelogo from "../../assets/acelogo.jpg";
 import futolog from "../../assets/futolog.jpg";
+import { putIdbItems } from "../../components/parts/auth";
 
 const Exams: FunctionalComponent<Props> = (props) => {
   const actions = createAction(useStore())
@@ -28,6 +29,8 @@ const Exams: FunctionalComponent<Props> = (props) => {
   if (!courses) {
     return <Loading />;
   }
+  // putIdbItems({ courses })
+
   let { user_info, details, rows, total_units } = courses;
   let photo = !!user_info && config.url + "/uploads/" + user_info.passport;
   //let total = 0;

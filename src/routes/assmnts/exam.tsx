@@ -1,11 +1,12 @@
 import { useStore, useAction, useSelector } from "@preact-hooks/unistore";
 import autosize from "autosize";
-import { h, Component, Fragment, FunctionalComponent, render } from "preact";
+import { h, Fragment, FunctionalComponent } from "preact";
 import { route } from "preact-router";
 import { useEffect } from "preact/hooks";
 import createAction from "../../actions";
 import { Props } from "../../components/parts/types";
 import Loading from "../../components/parts/loading";
+import { putIdbItems } from "../../components/parts/auth";
 
 const Exam: FunctionalComponent<Props> = (props) => {
   const actions = createAction(useStore())
@@ -13,11 +14,13 @@ const Exam: FunctionalComponent<Props> = (props) => {
   const updateStoreItems = useAction(actions.updateStoreItems);
   const xGet = useAction(actions.xGet);
   let { ida } = props;
+
   let ta_opts: any;
   if (typeof window !== 'undefined') {
     ta_opts = document.querySelectorAll("textarea");
   }
   const xPost = useAction(actions.xPost);
+  let { fData, questions, elements, qxn, workn, wkoff, cid } = useSelector('fData,questions,elements,qxn,workn,wkoff,cid');
 
   useEffect(() => {
     let config = {
@@ -33,8 +36,6 @@ const Exam: FunctionalComponent<Props> = (props) => {
       autosize(ta_opts[ta]);
     }
   }
-
-  let { fData, questions, elements, qxn, workn, wkoff, cid } = useSelector('fData,questions,elements,qxn,workn,wkoff,cid');
 
   const onInput = (e: Event) => {
     if (typeof window !== "undefined") {
@@ -57,7 +58,9 @@ const Exam: FunctionalComponent<Props> = (props) => {
         url: `/assmnts/ans`,
         target: document.getElementById("sav"),
       };
+
       xPost(config);
+      // putIdbItems({ fData, elements, questions, cid, dirty: true });
     }
   };
 

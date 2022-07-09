@@ -26,15 +26,8 @@ xhr.interceptors.request.use(
 				reqConfig.headers && delete reqConfig.headers.authorization;
 			}
 			const login = reqConfig.url.includes("/users/login");
-			const std_reg = reqConfig.url.includes("/users/register");
-			const stf_reg = reqConfig.url.includes("/users/xregister");
-			const state_reg = reqConfig.url.includes("/countries/states");
-			const dept_reg = reqConfig.url.includes("/faculties/depts");
-			const fank = reqConfig.url.includes("/faculties/fank");
-			let enroll = reqConfig.url.includes("/index/enroll");
-			let refer = reqConfig.url.includes("/index/refer");
 
-			if (user.s !== "con" && !login && !std_reg && !stf_reg && !state_reg && !dept_reg && !fank && !enroll && !refer) {
+			if (user.s !== "con" && !login) {
 				console.log("from req: user.s = ", user.s, "url: ", reqConfig.url);
 				typeof window !== "undefined" && token.cancel();
 				route("/");

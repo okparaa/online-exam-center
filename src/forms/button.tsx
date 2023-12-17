@@ -12,7 +12,7 @@ export const Button = (props: any) => {
 	let className = control.className;
 	let error = control.attributes.error;
 	let div_err = control.attributes.div_err;
-	let id = control.attributes.container;
+	let id = control.attributes.id;
 	let options = control.attributes.target_options;
 
 	let { form_data } = useSelector("form_data");
@@ -34,7 +34,7 @@ export const Button = (props: any) => {
 			isArray: (options && options.isArray) || false,
 			isMultipart: (options && options.isMultipart) || false,
 		};
-		console.log("posting: ", form_data, config);
+		//console.log("posting: ", form_data, config);
 		isValidForm(elements, form_data, exclude, config);
 		if (!!ctrls && !ctrls.errors) {
 			close();

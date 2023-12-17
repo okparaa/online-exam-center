@@ -18,7 +18,6 @@ export const Checkbox: FunctionComponent<InputProps> = ({ control, index, action
 	const parent = control?.attributes.parent;
 	const wclass = control?.attributes.wclass;
 	const inputclass = control?.attributes.className;
-	const id = control?.attributes.id;
 	const value_options = control?.options?.value_options;
 	let hint = control?.hint;
 	let xhint = control?.xhint;
@@ -49,7 +48,7 @@ export const Checkbox: FunctionComponent<InputProps> = ({ control, index, action
 			let checked = (ivalue && ivalue == value) || false;
 			return (
 				<div className={wclass}>
-					<input type="hidden" name={name} value="0" />
+					<input type="hidden" name={name} value="0" className={wclass} />
 					<input
 						type="checkbox"
 						value={value}

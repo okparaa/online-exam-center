@@ -1,4 +1,4 @@
-import axios from './axios';
+import axios from 'axios';
 import config from "./config";
 import { getItem, setItem, clear, isLogdIn } from "./auth";
 import { route } from "preact-router";
@@ -28,7 +28,7 @@ xhr.interceptors.request.use(
 			const login = reqConfig.url.includes("/users/login");
 
 			if (user.s !== "con" && !login) {
-				console.log("from req: user.s = ", user.s, "url: ", reqConfig.url);
+				//console.log("from req: user.s = ", user.s, "url: ", reqConfig.url);
 				typeof window !== "undefined" && token.cancel();
 				route("/");
 				// return Promise.reject('iamok')

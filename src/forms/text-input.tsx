@@ -36,6 +36,7 @@ export function TextInput(props: Data) {
 		e.preventDefault();
 		control.attributes.value = e.target.value;
 		control = clearInputHint(control);
+		//console.log('called onInput', e.currentTarget.value);		
 		form_data = setKeyedItem(form_data, e.target.value, index, e.target.name, parent);
 		updateStoreItems({ form_data, ctrls: {}, idx: guid() });
 	};

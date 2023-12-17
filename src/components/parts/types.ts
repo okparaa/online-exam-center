@@ -19,6 +19,7 @@ interface Control {
 		min_year?: number;
 		max_year?: number;
 		foreign?: string;
+		label?: string;
 		smallclass?: string;
 		className?: string;
 		value?: any;
@@ -31,6 +32,7 @@ interface Control {
 		legend_style?: string;
 		anchor_style?: string;
 		forclass?: string;
+		target_options?: TargetOptions;
 	};
 	options: {
 		label?: string;
@@ -43,6 +45,9 @@ interface Control {
 			target?: string;
 			sava_key?: string;
 			action?: string;
+			exclude?: string;
+			fetched?: string;
+			method?: string;
 			loading_class?: string;
 			clr_els?: string;
 		};
@@ -72,7 +77,7 @@ export interface State {
 		xclass?: string;
 		attn?: string;
 		src?: Blob;
-		options: {
+		options?: {
 			label?: string;
 			legend?: string;
 			count?: number;
@@ -163,6 +168,7 @@ export type Props = {
 	value?: number;
 	id?: string | number;
 	url?: string;
+	history?: any;
 	bios?: Record<string, string>;
 	jar?: string;
 	action?: string;

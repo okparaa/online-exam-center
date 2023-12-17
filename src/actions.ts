@@ -14,11 +14,13 @@ const createAction = ({ getState, setState }: any) => {
 			username: {
 				type: "email",
 				name: "username",
+				value: '',
 				attributes: { placeholder: "Username (email)", className: "username" },
 			},
 			password: {
 				type: "password",
 				name: "password",
+				value: '',
 				attributes: {
 					placeholder: "Password",
 					className: "password",
@@ -32,7 +34,7 @@ const createAction = ({ getState, setState }: any) => {
 					className: "button",
 					style: "width: 100%; font-weight: bold;",
 					error: "display: none",
-					container: "elems",
+					id: "elems",
 					target_options: {
 						exclude: "action",
 						url: "/users/login",
@@ -91,7 +93,7 @@ const createAction = ({ getState, setState }: any) => {
 		if (config.isArray) {
 			Object.entries(elements).map(([ky, elm]) => {
 				if (elm.type == "collection") {
-					gcontrols = elm.options.target_groups;
+					gcontrols = elm.options?.target_groups;
 					let grp = true;
 					let elk = ky;
 					if (gcontrols !== undefined) {
@@ -139,7 +141,7 @@ const createAction = ({ getState, setState }: any) => {
 		grp?: any,
 		index?: number | string
 	) => {
-		console.log(elements, form_data, exclude);
+		//console.log(elements, form_data, exclude);
 		let valid = true,
 			required;
 		form_data = { ...form_data };
@@ -177,16 +179,16 @@ const createAction = ({ getState, setState }: any) => {
 		setState({ ...state, [container]: elements, ctrls });
 	};
 	const saveLocalData = (state: State, data: any, ctrls: any) => {
-		console.log(data);
+		//console.log(data);
 		if (data && data.user && data.user.s === "con") {
 			clear();
-			clearIdb();
+			//clearIdb();
 
 			setItem("token", data.user.token);
-			putIdbItem('token', data.user.token)
+			//putIdbItem('token', data.user.token)
 
 			setItem("rtoken", data.user.rtoken);
-			putIdbItem('rtoken', data.user.rtoken)
+			//putIdbItem('rtoken', data.user.rtoken)
 
 			setItem("passport", data.user.passport);
 			setItem("fn", data.user.fn);
@@ -277,12 +279,12 @@ const createAction = ({ getState, setState }: any) => {
 			.post(config.url, prepareData(config.datum || form_data, config))
 			.then((response: any) => {
 				const { data } = response;
-				console.log('respon', response);
+				//console.log('response', response);
 
 				if (typeof window !== 'undefined') {
 					removeClass(config.target, "load");
 				}
-				let grouped = redirect(data, config);
+				let grouped = redirect(data, config);				
 				setState({ ...getState(), ...grouped });
 				if (config.isArray && data.errors) {
 					const errorsArr = Object.entries(data.errors).map(([ky, elem]) => {
@@ -357,48 +359,12 @@ const createAction = ({ getState, setState }: any) => {
 			}
 		}
 	};
-	const dropDown = (state: State, data: Data, config: Config) => {
-		let classNames = getState().classNames;
-		const elements = config.elements;
-		let keys: string[] = config.keys?.split(",") || [];
-		console.log(keys, config, classNames, "dropdwn");
-
-		for (const k of keys) {
-			let ky = k.trim();
-			// if(!elements[ky]) continue
-			elements && (elements[ky].attributes.className = classNames[ky]);
-			elements && (elements[ky].attributes.value = "");
-			elements && (elements[ky].options.value_options = data[ky]);
-		}
-		delete getState().classNames;
-	};
+	
 	const removeStoreItems = (state: State, keys: string) => {
 		keys.split(",").map((key) => {
 			delete state[key];
 		});
 		return { ...state }
-	};
-	const initDropDown = (state: State, config: Config) => {
-		let spin = config.spin ? config.spin : "workn";
-		const loading = config.spin ? config.spin : "wload";
-		const keys: string[] = (config.keys && config.keys.split(",")) || [];
-		let classNames: Data = [];
-		let elements: Elems | undefined = config.elements;
-
-		const clr_els: string[] = config.clr_els?.split(",") || [];
-		for (const el of clr_els) {
-			elements && (elements[el].options.value_options = []);
-			elements && (elements[el].attributes.value = "");
-		}
-		for (const k of keys) {
-			console.log("keys", keys, k);
-			let ky: string = k;
-			// if(!elements[ky]) continue
-			classNames[k] = (elements && elements[k].attributes.className) || "";
-			elements && (elements[k].attributes.className = loading);
-			// console.log("initdroper", elements![k], k, loading);
-		}
-		setState({ ...getState(), classNames: classNames });
 	};
 
 	const fetchPages = (state: State, url: string, config: Config) => {

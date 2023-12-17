@@ -25,7 +25,7 @@ const App: FunctionComponent<Props> = props => {
     const actions = createAction(useStore())
     const updateStoreItems = useAction(actions.updateStoreItems);
     const appRef = useRef(null);
-
+    const { history } = props
     const handleRoute = (e: any) => {
         setUrl(e.url);
     };
@@ -41,7 +41,7 @@ const App: FunctionComponent<Props> = props => {
             <img style={{ position: 'absolute', visibility: 'hidden' }} src={tmoon} />
             <div onClick={toggle} id="schul">
                 <Header url={url} />
-                <Router onChange={handleRoute}>
+                <Router history={history} onChange={handleRoute}>
                     <Index path="/" />
                     <Dash path="/users/dash" />
                     <Okam path="/users/okam" />
@@ -56,8 +56,8 @@ const App: FunctionComponent<Props> = props => {
     );
 };
 
-export default () => (
+export default ({history = undefined}: any) => (
     <StoreProvider value={store}>
-        <App />
+        <App history={history} />
     </StoreProvider>
 );
